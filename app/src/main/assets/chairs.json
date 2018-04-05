@@ -1,0 +1,76 @@
+{
+  "chairs":[
+    {
+      "name": "1",
+      "place": "Marui Shinjuku",
+      "date": "2018/04/04",
+      "time": "14:30~18:30"
+    },
+    {
+      "name": "2",
+      "place": "Marui Shinjuku",
+      "date": "2018/04/04",
+      "time": "14:30~18:30"
+    },
+    {
+      "name": "3",
+      "place": "Marui Shinjuku",
+      "date": "2018/04/04",
+      "time": "14:30~18:30"
+    },
+    {
+      "name": "4",
+      "place": "Marui Shinjuku",
+      "date": "2018/04/04",
+      "time": "14:30~18:30"
+    },
+    {
+      "name": "5",
+      "place": "Marui Shinjuku",
+      "date": "2018/04/04",
+      "time": "14:30~18:30"
+    },
+    {
+      "name": "6",
+      "place": "Marui Shinjuku",
+      "date": "2018/04/04",
+      "time": "14:30~18:30"
+    },
+    {
+      "name": "7",
+      "place": "Marui Shinjuku",
+      "date": "2018/04/04",
+      "time": "14:30~18:30"
+    },
+    {
+      "name": "8",
+      "place": "Marui Shinjuku",
+      "date": "2018/04/04",
+      "time": "14:30~18:30"
+    },
+    {
+      "name": "9",
+      "place": "Marui Shinjuku",
+      "date": "2018/04/04",
+      "time": "14:30~18:30"
+    },
+    {
+      "name": "10",
+      "place": "Marui Shinjuku",
+      "date": "2018/04/04",
+      "time": "14:30~18:30"
+    },
+    {
+      "name": "11",
+      "place": "Marui Shinjuku",
+      "date": "2018/04/04",
+      "time": "14:30~18:30"
+    },
+    {
+      "name": "12",
+      "place": "Marui Shinjuku",
+      "date": "2018/04/04",
+      "time": "14:30~18:30"
+    }
+  ]
+}
