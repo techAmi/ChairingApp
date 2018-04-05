@@ -12,7 +12,9 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
 /**
@@ -27,13 +29,19 @@ public class ChairAdapter extends BaseAdapter {
     private static final int GRID = 1;
     private static final int LIST = 2;
 
+    private UartService uartService = null;
 
+    private BluetoothAdapter mBlAdapter = null;
     public ChairAdapter(Activity context, ArrayList<Chair> chairs, int listType) {
         this.mContext = context;
         // add the instance variables that will be associated  with the adapter
         this.mInflater = (LayoutInflater)  mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.chairs = chairs;
         this.listType = listType;
+        mBlAdapter = BluetoothAdapter.getDefaultAdapter();
+        if (mBlAdapter == null) {
+            Toast.makeText(context, "Bluetooth is not available", Toast.LENGTH_LONG).show();
+        }
     }
 
     @Override
@@ -84,23 +92,60 @@ public class ChairAdapter extends BaseAdapter {
 
             // Lock and imageViews click events
 
-            final ImageView lockChair = (ImageView) rowView.findViewById(R.id.lockChair);
-            final ImageView unlockChair = (ImageView) rowView.findViewById(R.id.unlockChair);
+            final ImageView lockUnlockChair = (ImageView) rowView.findViewById(R.id.lockUnlockChair);
+            final ImageView connectDisconnectChair = (ImageView) rowView.findViewById(R.id.connectDisconnectChair);
+            lockUnlockChair.setImageResource((chair.getIsLocked() && !chair.getIsConnected()) ? R.drawable.locked_unconnected_chair : R.drawable.lock_chair);
 
-            lockChair.setOnClickListener(new View.OnClickListener() {
+            connectDisconnectChair.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Log.i("Locked", "was clicked");
-//                    Intent enableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-//                    mContext.startActivityForResult(enableIntent, 2);
-                    new IntentIntegrator(mContext).initiateScan();
+                    if (!mBlAdapter.isEnabled()) {
+                        Log.i("Bluetooth", "not available");
+                        Intent enableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+                        mContext.startActivityForResult(enableIntent, 2);
+                    } else {
+
+                        Log.i("Locked", "was clicked");
+                        new IntentIntegrator(mContext).initiateScan();
+                    }
+
                 }
             });
 
-            unlockChair.setOnClickListener(new View.OnClickListener() {
+            lockUnlockChair.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    String lockValue;
                     Log.i("Unlocked", "was clicked");
+                    try {
+                        if (chair.getIsConnected()) {
+                            if (chair.getIsLocked()) {
+                                lockValue = "O";
+                            } else if(!chair.getIsLocked()) {
+                                lockValue = "L";
+                            } else {
+                                lockValue = "stop";
+                            }
+                            uartService.writeRXCharacteristic(lockValue.getBytes("UTF-8"));
+                            chair.toggleLocked();
+                            lockUnlockChair.setImageResource(chair.getIsLocked() ? R.drawable.lock_chair : R.drawable.unlock_chair);
+                        }
+                    } catch(UnsupportedEncodingException e) {
+                        e.printStackTrace();
+                    }
+
+
+                }
+
+                public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+                    IntentResult scanningResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, intent);
+                    if (scanningResult !=null ) {
+                        lockUnlockChair.setImageResource(R.drawable.lock_chair);
+                        chair.toggleConnected();
+                        connectDisconnectChair.setImageResource(chair.getIsConnected() ? R.drawable.connected : R.drawable.disconnected);
+                    } else {
+                        Toast.makeText(mContext, "No Scan Data Received", Toast.LENGTH_LONG).show();
+                    }
                 }
             });
         }

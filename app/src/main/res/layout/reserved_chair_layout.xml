@@ -56,13 +56,13 @@
         </LinearLayout>
 
         <ImageView
-            android:id="@+id/lockChair"
+            android:id="@+id/connectDisconnectChair"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/lock_chair" />
+            app:srcCompat="@drawable/disconnected" />
 
         <ImageView
-            android:id="@+id/unlockChair"
+            android:id="@+id/lockUnlockChair"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:srcCompat="@drawable/unlock_chair" />

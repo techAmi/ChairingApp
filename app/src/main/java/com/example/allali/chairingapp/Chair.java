@@ -18,6 +18,8 @@ public class Chair {
     private int name;
     private boolean isReserved = false;
     private boolean isSelected = false;
+    private boolean isConnected = false;
+    private boolean isLocked = true;
     private final int imageRessource;
     private String reservationDate;
     private String reservationTime;
@@ -41,6 +43,14 @@ public class Chair {
 
     public boolean getIsReserved() {
         return isReserved;
+    }
+
+    public boolean getIsConnected() {
+        return isConnected;
+    }
+
+    public boolean getIsLocked() {
+        return isLocked;
     }
 
     public boolean getIsSelected() {
@@ -67,8 +77,12 @@ public class Chair {
         isSelected = !isSelected;
         Log.i("toggled", String.valueOf(isSelected));
     }
-
-
+    public  void toggleConnected() {
+        isConnected = !isConnected;
+    }
+    public void toggleLocked() {
+        isLocked = !isLocked;
+    }
 
     public static ArrayList<Chair> getChairsFromFile(String fileName, Context context) {
         final ArrayList<Chair> chairList = new ArrayList<>();
