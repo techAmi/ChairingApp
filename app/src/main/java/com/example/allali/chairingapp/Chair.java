@@ -20,23 +20,23 @@ public class Chair {
     private boolean isSelected = false;
     private boolean isConnected = false;
     private boolean isLocked = true;
-    private final int imageRessource;
+    private final int imageResource;
     private String reservationDate;
     private String reservationTime;
     private String place;
 
-    public Chair(int name, int imageRessource) {
+    public Chair(int name, int imageResource) {
         this.name = name;
-        this.imageRessource = imageRessource;
+        this.imageResource = imageResource;
     }
 
     public String getName() {
         return "CH" + name;
     }
 
-    public int getImageRessource() {
+    public int getImageResource() {
         if (!isReserved) {
-            return imageRessource;
+            return imageResource;
         } else return R.drawable.chair_red;
 
     }

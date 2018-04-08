@@ -37,6 +37,8 @@ public class ChairListAdapter extends BaseAdapter {
     private BluetoothAdapter mBlAdapter = null;
     private UartService uartService = null;
 
+    private ChairListAdapter chairListAdapter;
+
     private int lastSelectedChair;
 
     public ChairListAdapter(Activity context, ArrayList<Chair> chairs) {
@@ -44,6 +46,7 @@ public class ChairListAdapter extends BaseAdapter {
         this.mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.chairs = chairs;
         this.mBlAdapter = BluetoothAdapter.getDefaultAdapter();
+        this.chairListAdapter = this;
     }
 
     @Override
@@ -75,7 +78,15 @@ public class ChairListAdapter extends BaseAdapter {
 
         lockUnlockChair = (ImageView) rowView.findViewById(R.id.lockUnlockChair);
         connectDisconnectChair = (ImageView) rowView.findViewById(R.id.connectDisconnectChair);
-        lockUnlockChair.setImageResource((chair.getIsLocked() && !chair.getIsConnected()) ? R.drawable.locked_unconnected_chair : R.drawable.lock_chair);
+
+        // change the lockUnlockChair image resource depending on chair status
+        if (!chair.getIsConnected() && chair.getIsLocked()) {
+            lockUnlockChair.setImageResource(R.drawable.locked_unconnected_chair);
+        } else if (chair.getIsConnected() && !chair.getIsLocked()) {
+            lockUnlockChair.setImageResource(R.drawable.unlock_chair);
+        } else if (chair.getIsConnected() && chair.getIsLocked()) {
+            lockUnlockChair.setImageResource(R.drawable.lock_chair);
+        }
         connectDisconnectChair.setImageResource(chairs.get(position).getIsConnected() ? R.drawable.connected : R.drawable.disconnected);
         Log.i("chair", ""+chairs.get(lastSelectedChair).getIsConnected());
         chairName.setText(chair.getName());
@@ -105,6 +116,9 @@ public class ChairListAdapter extends BaseAdapter {
             public void onClick(View v) {
                 String lockValue;
                 Log.i("Unlocked", "was clicked");
+                chairs.get(lastSelectedChair).toggleLocked();
+                Toast.makeText(mContext,"" + chair.getIsLocked() + chair.getIsConnected(), Toast.LENGTH_LONG).show();
+                chairListAdapter.notifyDataSetChanged();
                 try {
                     if (chair.getIsConnected()) {
                         if (chair.getIsLocked()) {
@@ -117,8 +131,9 @@ public class ChairListAdapter extends BaseAdapter {
                         if (uartService != null) {
                             uartService.writeRXCharacteristic(lockValue.getBytes("UTF-8"));
                         }
-                        chair.toggleLocked();
-                        lockUnlockChair.setImageResource(chair.getIsLocked() ? R.drawable.lock_chair : R.drawable.unlock_chair);
+                        // for test purposes changed the locked icon anyways
+                        // TODO: do this properly when the device is ready for testing
+
                     }
                 } catch(UnsupportedEncodingException e) {
                     e.printStackTrace();

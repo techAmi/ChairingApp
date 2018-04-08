@@ -59,7 +59,7 @@ public class ChairGridAdapter extends BaseAdapter {
 
         Log.i("getView top", "position:" + position);
 
-        chairImage.setImageResource(chair.getIsSelected() ? R.drawable.chair_red : chair.getImageRessource());
+        chairImage.setImageResource(chair.getIsSelected() ? R.drawable.chair_red : chair.getImageResource());
         chairName.setText(chair.getName());
         return rowView;
     }
