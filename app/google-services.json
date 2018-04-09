@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "848947204395",
+    "firebase_url": "https://chairing-45068.firebaseio.com",
+    "project_id": "chairing-45068",
+    "storage_bucket": "chairing-45068.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:848947204395:android:f89ddba01e93d4ec",
+        "android_client_info": {
+          "package_name": "com.example.allali.chairingapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "848947204395-u1ffu3b85sabcjnrqru34t4vgn0uprb4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.allali.chairingapp",
+            "certificate_hash": "5d0e24d81bf77f90d048ab3b7b0115d0887ea745"
+          }
+        },
+        {
+          "client_id": "848947204395-tm7gomd4ro2i7isjecruehu7v9h3t8c3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAB0U6Z1eoXwFeiJTI_fmiLqB1Sina-eSE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "848947204395-tm7gomd4ro2i7isjecruehu7v9h3t8c3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
